@@ -1,10 +1,9 @@
-import './App.css'
+import Dashboard from "./pages/Dashboard"
 
 function App() {
-
   return (
     <>
-    <h1>Test </h1>
+    <Dashboard />
     </>
   )
 }
