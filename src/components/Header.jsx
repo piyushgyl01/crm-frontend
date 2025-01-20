@@ -1,9 +1,12 @@
+import BasicPopover from "./AddButton";
+
 export default function Header({ heading }) {
   return (
     <>
       <header>
-        <div className="py-5">
-            <h1 className="text-center display-3">{heading}</h1>
+        <div className="p-3 border-bottom d-flex justify-content-between">
+          <h1 className=" ">{heading}</h1>
+          <BasicPopover />
         </div>
       </header>
     </>
