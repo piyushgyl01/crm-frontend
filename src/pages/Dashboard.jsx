@@ -1,43 +1,27 @@
-// import Header from "../components/Header";
-// import Lead from "../components/Lead";
-// import SideBar from "../components/SideBar";
-
-// export default function Dashboard() {
-//   return (
-//     <>
-//       <div className="row">
-//         <div className="col-md-3">
-//           <SideBar />
-//         </div>
-//         <div className="col-md-9">
-//         <Header heading={"CRMables CRM Dashboard"} />
-
-//           <h1>Leads</h1>
-//         </div>
-//       </div>
-//       <Lead />
-//     </>
-//   );
-// }
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import * as React from "react";
+import PropTypes from "prop-types";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import MailIcon from "@mui/icons-material/Mail";
+import MenuIcon from "@mui/icons-material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
+import BasicPopover from "../components/AddButton";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import CardTravelIcon from "@mui/icons-material/CardTravel";
+import SummarizeIcon from "@mui/icons-material/Summarize";
+import PersonIcon from "@mui/icons-material/Person";
 
 const drawerWidth = 240;
 
@@ -61,66 +45,91 @@ function ResponsiveDrawer(props) {
     }
   };
 
+  const navigationItems = [
+    {
+      name: "Leads",
+      path: "/lead-list",
+      icon: <CardTravelIcon />,
+    },
+    {
+      name: "Sales Agent",
+      path: "/sales-agent-list",
+      icon: <AttachMoneyIcon />,
+    },
+    {
+      name: "Reports",
+      path: "/reports",
+      icon: <SummarizeIcon />,
+    },
+    {
+      name: "Lead By Status",
+      path: "/lead-by-status",
+      icon: <PersonIcon />,
+    },
+  ];
+
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+      <List className="p-4">
+        {navigationItems.map((item) => (
+          <ListItem key={item.name} disablePadding>
+            <Link className="text-decoration-none text-dark" to={item.path}>
+              <ListItemButton>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.name} />
+              </ListItemButton>
+            </Link>
           </ListItem>
         ))}
       </List>
       <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
     </div>
   );
 
   // Remove this const when copying and pasting into your project.
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
-        style={{ backgroundColor: "#FFFFFF" }}
+        style={{
+          backgroundColor: "#FFFFFF",
+          borderBottom: "1px solid #e0e0e0",
+        }}
         position="fixed"
+        elevation={0}
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
         }}
       >
-        <Toolbar className='d-flex justify-content-between'>
+        <Toolbar className="d-flex justify-content-between">
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            edge="start" style={{ color: "#000000" }}
+            edge="start"
+            style={{ color: "#000000" }}
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { sm: "none" } }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" style={{color: "#000000"}} noWrap component="div">
-            Responsive drawer
+          <Typography
+            variant="h6"
+            style={{ color: "#000000" }}
+            noWrap
+            component="div"
+          >
+            <Link className="text-decoration-none text-dark" to={"/"}>
+              {" "}
+              CRMables CRM Dashboard
+            </Link>
           </Typography>
-          <Button variant="contained">Contained</Button>
+          <BasicPopover />
         </Toolbar>
       </AppBar>
       <Box
@@ -139,8 +148,11 @@ function ResponsiveDrawer(props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
           }}
         >
           {drawer}
@@ -148,8 +160,11 @@ function ResponsiveDrawer(props) {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            display: { xs: "none", sm: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
           }}
           open
         >
@@ -158,7 +173,11 @@ function ResponsiveDrawer(props) {
       </Box>
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
       >
         <Toolbar />
       </Box>
