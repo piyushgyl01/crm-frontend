@@ -16,7 +16,7 @@ export default function Dashboard() {
   return (
     <>
       <main>
-        <Lead />
+        <Lead title={"Leads"} />
         <h1>Lead Status</h1>
         {loading && (
           <>

@@ -71,7 +71,7 @@ function RecipeReviewCard({
   );
 }
 
-export default function Lead() {
+export default function Lead({title}) {
   const { data, loading, error } = useFetch(
     "https://crmables-backend.vercel.app/leads"
   );
@@ -88,7 +88,7 @@ export default function Lead() {
     <>
       <div className="container-fluid my-3">
         <div className="row">
-          <h1 className="col-md-6">Leads</h1>
+          <h1 className="col-md-6">{title}</h1>
           <span className="col-md-6">
             <BasicSelect onFilterChange={handleStatusChange} />
           </span>
