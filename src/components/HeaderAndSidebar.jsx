@@ -93,7 +93,7 @@ function ResponsiveDrawer(props) {
         {navigationItems.map((item) => (
           <ListItem key={item.name} disablePadding>
             <Link className="text-decoration-none text-dark" to={item.path}>
-              <ListItemButton>
+              <ListItemButton onClick={handleDrawerClose}>
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.name} />
               </ListItemButton>

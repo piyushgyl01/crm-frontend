@@ -1,9 +1,10 @@
-
+import { useState, useEffect } from "react";
+import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 export default function Reports() {
     return (
         <>
-            <h1>Reports</h1>
+            <h1>Report Overview</h1>
         </>
     )
 }

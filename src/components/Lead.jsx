@@ -10,7 +10,7 @@ import { red } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Error from "./Error";
 import Loading from "./Loading";
-import BasicSelect from "./Filter";
+import SelectFilter from "./Filter";
 
 function RecipeReviewCard({
   name,
@@ -71,7 +71,7 @@ function RecipeReviewCard({
   );
 }
 
-export default function Lead({title}) {
+export default function Lead({ title }) {
   const { data, loading, error } = useFetch(
     "https://crmables-backend.vercel.app/leads"
   );
@@ -79,10 +79,13 @@ export default function Lead({title}) {
   const [status, setStatus] = React.useState("All");
 
   const handleStatusChange = (selectedStatus) => {
-    setStatus(selectedStatus)
-  }
+    setStatus(selectedStatus);
+  };
 
-  const filteredData = status === "All" ? data : data?.filter((lead) => lead.status === status)
+  const statusOptions = ["New", "Contacted", "Qualified", "Closed"];
+
+  const filteredData =
+    status === "All" ? data : data?.filter((lead) => lead.status === status);
 
   return (
     <>
@@ -90,7 +93,11 @@ export default function Lead({title}) {
         <div className="row">
           <h1 className="col-md-6">{title}</h1>
           <span className="col-md-6">
-            <BasicSelect onFilterChange={handleStatusChange} />
+            <SelectFilter
+              label="Filter By Status"
+              options={statusOptions}
+              onFilterChange={handleStatusChange}
+            />
           </span>
         </div>
         {loading && (
@@ -99,10 +106,9 @@ export default function Lead({title}) {
           </>
         )}
         {error && (
-         
-         <>
+          <>
             <Error />
-         </>
+          </>
         )}
         {filteredData && (
           <div className="row">

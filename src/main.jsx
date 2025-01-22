@@ -53,7 +53,7 @@ const router = createBrowserRouter([
         element: <SalesAgent />,
       },
       {
-        path: "/sales-agent-details/:sales-agent-name/:salesAgentID",
+        path: "/sales-agent-details/:salesAgentID",
         element: <SalesAgentView />,
       },
     ],
