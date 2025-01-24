@@ -79,13 +79,13 @@ function ResponsiveDrawer(props) {
       <IconButton
         className=" ms-4 p-3"
         onClick={handleDrawerClose}
-        sx={{ display: { sm: "none" } }} // Only show on mobile
+        sx={{ display: { sm: "none" } }} 
         style={{ color: "#000000" }}
       >
         <CloseIcon />
       </IconButton>
       <Toolbar
-        sx={{ display: { xs: "none", sm: "block" } }} // Only show on mobile
+        sx={{ display: { xs: "none", sm: "block" } }}
       />
 
       <Divider />
@@ -105,7 +105,6 @@ function ResponsiveDrawer(props) {
     </div>
   );
 
-  // Remove this const when copying and pasting into your project.
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
@@ -155,7 +154,6 @@ function ResponsiveDrawer(props) {
           sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
           aria-label="mailbox folders"
         >
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
           <Drawer
             container={container}
             variant="temporary"
@@ -163,7 +161,7 @@ function ResponsiveDrawer(props) {
             onTransitionEnd={handleDrawerTransitionEnd}
             onClose={handleDrawerClose}
             ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
+              keepMounted: true, 
             }}
             sx={{
               display: { xs: "block", sm: "none" },
@@ -206,10 +204,6 @@ function ResponsiveDrawer(props) {
 }
 
 ResponsiveDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * Remove this when copying and pasting into your project.
-   */
   window: PropTypes.func,
 };
 

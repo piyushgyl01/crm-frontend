@@ -20,13 +20,10 @@ export default function Dashboard() {
         <h1>Lead Status</h1>
         {loading && (
           <>
-            
             <Loading />
           </>
         )}
-        {error && (
-          <Error/>
-        )}
+        {error && <Error />}
         {data && (
           <ul>
             <li>New: {newLead} Leads</li>

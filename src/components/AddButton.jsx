@@ -19,7 +19,11 @@ export default function BasicPopover() {
 
   return (
     <div>
-      <Button aria-describedby={id} style={{backgroundColor: "#514EF3", color: "white"}} onClick={handleClick}>
+      <Button
+        aria-describedby={id}
+        style={{ backgroundColor: "#514EF3", color: "white" }}
+        onClick={handleClick}
+      >
         Add New +
       </Button>
       <Popover

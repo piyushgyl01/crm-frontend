@@ -1,5 +1,3 @@
-import CircularProgress from "@mui/material/CircularProgress";
-import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 
 export default function Error() {

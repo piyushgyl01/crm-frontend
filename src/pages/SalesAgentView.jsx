@@ -5,42 +5,44 @@ import CustomizedTables from "../components/LeadTable";
 export default function SalesAgentView() {
   const { salesAgentID } = useParams();
 
-  const { data: agents, loading: agentsLoading, error: agentsError } = useFetch(
-    "https://crmables-backend.vercel.app/salesAgent"
-  );
+  const {
+    data: agents,
+    loading: agentsLoading,
+    error: agentsError,
+  } = useFetch("https://crmables-backend.vercel.app/salesAgent");
 
-  const { data: leads, loading: leadsLoading, error: leadsError } = useFetch(
-    "https://crmables-backend.vercel.app/leads"
-  );
+  const {
+    data: leads,
+    loading: leadsLoading,
+    error: leadsError,
+  } = useFetch("https://crmables-backend.vercel.app/leads");
 
-  // Find the agent
   const agent = agents?.find((agent) => agent._id === salesAgentID);
 
-  // Filter leads by the agent's name
-  const leadByAgent = leads?.filter((lead) => lead.salesAgent.name === agent?.name) || [];
+  const leadByAgent =
+    leads?.filter((lead) => lead.salesAgent.name === agent?.name) || [];
 
-  // Columns for the leads table
   const agentLeadColumns = [
-    { 
-      id: "name", 
+    {
+      id: "name",
       label: "Name",
       linkTo: (row) => `/lead-details/${row.name}/${row._id}`,
     },
-    { 
-      id: "status", 
-      label: "Status", 
+    {
+      id: "status",
+      label: "Status",
       align: "left",
     },
-    { 
-      id: "timeToClose", 
-      label: "Time To Close", 
+    {
+      id: "timeToClose",
+      label: "Time To Close",
       align: "left",
     },
-    { 
-      id: "priority", 
-      label: "Priority", 
+    {
+      id: "priority",
+      label: "Priority",
       align: "left",
-    }
+    },
   ];
 
   if (agentsLoading || leadsLoading) return <div>Loading...</div>;
@@ -49,12 +51,12 @@ export default function SalesAgentView() {
 
   return (
     <>
-      <CustomizedTables 
-        data={leadByAgent} 
-        columns={agentLeadColumns} 
+      <CustomizedTables
+        data={leadByAgent}
+        columns={agentLeadColumns}
         type="leads"
         title={`Lead List by ${agent.name}`}
-        showFilters={false} 
+        showFilters={false}
       />
     </>
   );

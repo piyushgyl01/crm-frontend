@@ -3,10 +3,7 @@ import useFetch from "../useFetch";
 import { useNavigate } from "react-router-dom";
 
 export default function SalesAgent() {
-  const { data } = useFetch(
-    "https://crmables-backend.vercel.app/salesAgent"
-  );
-  
+  const { data } = useFetch("https://crmables-backend.vercel.app/salesAgent");
 
   const agentColumns = [
     {
@@ -24,11 +21,7 @@ export default function SalesAgent() {
   return (
     <>
       <h1>Sales Agents</h1>
-      <CustomizedTables
-        data={data}
-        columns={agentColumns}
-        type="agents"
-      />
+      <CustomizedTables data={data} columns={agentColumns} type="agents" />
     </>
   );
 }

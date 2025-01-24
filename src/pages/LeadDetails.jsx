@@ -78,10 +78,10 @@ export default function LeadDetails() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(editedLeadData), // Use the passed data
+        body: JSON.stringify(editedLeadData),
       });
       console.log("Lead details updated successfully");
-      setShowEditForm(false); // Hide the form after successful edit
+      setShowEditForm(false); 
     } catch (error) {
       console.error("Error updating lead details:", error);
     }

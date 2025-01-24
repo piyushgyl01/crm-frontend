@@ -20,7 +20,9 @@ export default function SalesAgentFilter({ onFilterChange }) {
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Filter By Sales Agent</InputLabel>
+        <InputLabel id="demo-simple-select-label">
+          Filter By Sales Agent
+        </InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -30,9 +32,9 @@ export default function SalesAgentFilter({ onFilterChange }) {
         >
           <MenuItem value={"None"}>None</MenuItem>
           {data?.map((agent) => (
-              <MenuItem key={agent.salesAgent.name} value={agent.salesAgent.name}>
-                {agent.salesAgent.name}
-              </MenuItem>
+            <MenuItem key={agent.salesAgent.name} value={agent.salesAgent.name}>
+              {agent.salesAgent.name}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

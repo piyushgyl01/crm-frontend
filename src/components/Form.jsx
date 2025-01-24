@@ -19,7 +19,13 @@ function Form({ lead, salesAgent, onSave, type = "edit" }) {
     "Email",
     "Other",
   ];
-  const statusOptions = ["New", "Contacted", "Qualified", "Proposal Sent", "Closed"];
+  const statusOptions = [
+    "New",
+    "Contacted",
+    "Qualified",
+    "Proposal Sent",
+    "Closed",
+  ];
   const priorityOptions = ["High", "Medium", "Low"];
 
   useEffect(() => {
@@ -50,7 +56,9 @@ function Form({ lead, salesAgent, onSave, type = "edit" }) {
 
   return (
     <>
-      <h1>{type === "edit" ? `Edit Details of ${lead?.name}` : "Add New Lead"}</h1>
+      <h1>
+        {type === "edit" ? `Edit Details of ${lead?.name}` : "Add New Lead"}
+      </h1>
       <label htmlFor="name">Name:</label>
       <input
         type="text"
@@ -59,7 +67,8 @@ function Form({ lead, salesAgent, onSave, type = "edit" }) {
         onChange={handleInputChange}
         id="name"
       />
-      <br /><br />
+      <br />
+      <br />
 
       <label htmlFor="salesAgent">Choose Sales Agent: </label>
       <select
@@ -75,7 +84,8 @@ function Form({ lead, salesAgent, onSave, type = "edit" }) {
           </option>
         ))}
       </select>
-      <br /><br />
+      <br />
+      <br />
 
       <label htmlFor="source">Source: </label>
       <select
@@ -91,7 +101,8 @@ function Form({ lead, salesAgent, onSave, type = "edit" }) {
           </option>
         ))}
       </select>
-      <br /><br />
+      <br />
+      <br />
 
       <label htmlFor="status">Status: </label>
       <select
@@ -107,7 +118,8 @@ function Form({ lead, salesAgent, onSave, type = "edit" }) {
           </option>
         ))}
       </select>
-      <br /><br />
+      <br />
+      <br />
 
       <label htmlFor="timeToClose">Time To Close: </label>
       <input
@@ -117,7 +129,8 @@ function Form({ lead, salesAgent, onSave, type = "edit" }) {
         type="number"
         id="timeToClose"
       />
-      <br /><br />
+      <br />
+      <br />
 
       <label htmlFor="priority">Priority: </label>
       <select
@@ -133,7 +146,8 @@ function Form({ lead, salesAgent, onSave, type = "edit" }) {
           </option>
         ))}
       </select>
-      <br /><br />
+      <br />
+      <br />
 
       <label htmlFor="tagsField">Tags:</label>
       <input
@@ -144,7 +158,8 @@ function Form({ lead, salesAgent, onSave, type = "edit" }) {
         id="tagsField"
         placeholder="Enter tags separated by commas"
       />
-      <br /><br />
+      <br />
+      <br />
 
       <button onClick={() => onSave(formData)}>
         {type === "edit" ? "Save Changes" : "Add Lead"}

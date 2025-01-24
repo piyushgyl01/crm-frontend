@@ -21,14 +21,14 @@ export default function LeadList() {
     "https://crmables-backend.vercel.app/leads"
   );
   const leadColumns = [
-    { 
-      id: "name", 
+    {
+      id: "name",
       label: "Name",
       linkTo: (row) => `/lead-details/${data.name}/${row._id}`,
     },
-    { 
-      id: "source", 
-      label: "Source", 
+    {
+      id: "source",
+      label: "Source",
       align: "left",
     },
     {
@@ -37,34 +37,33 @@ export default function LeadList() {
       align: "left",
       render: (row) => row.salesAgent.name,
     },
-    { 
-      id: "status", 
-      label: "Status", 
+    {
+      id: "status",
+      label: "Status",
       align: "left",
     },
-    { 
-      id: "timeToClose", 
-      label: "Time To Close", 
+    {
+      id: "timeToClose",
+      label: "Time To Close",
       align: "left",
     },
-    { 
-      id: "priority", 
-      label: "Priority", 
+    {
+      id: "priority",
+      label: "Priority",
       align: "left",
-    }
+    },
   ];
 
   return (
     <main>
-      <CustomizedTables 
-        data={data} 
-        columns={leadColumns} 
-        type="leads" 
+      <CustomizedTables
+        data={data}
+        columns={leadColumns}
+        type="leads"
         loading={loading}
         error={error}
         specificFilters={["status", "salesAgent"]}
-        />
-    
-      </main>
+      />
+    </main>
   );
 }

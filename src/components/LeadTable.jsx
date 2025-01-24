@@ -14,7 +14,6 @@ import SortByPriority from "./SortByPriority";
 import SortByTimeToClose from "./SortByTimeToClose";
 import { Link } from "react-router-dom";
 
-// Styled components for table cells and rows
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -42,20 +41,17 @@ export default function CustomizedTables({
   loading,
   error,
   showFilters = true,
-  specificFilters = [], // New prop for more granular filter control
+  specificFilters = [], 
 }) {
-  // State for various filters
   const [status, setStatus] = React.useState("All");
   const [agent, setAgent] = React.useState("None");
   const [priority, setPriority] = React.useState("All");
   const [prioritySort, setPrioritySort] = React.useState("");
   const [timeRange, setTimeRange] = React.useState([0, 100]);
 
-  // Filter options
   const statusOptions = ["All", "New", "Contacted", "Qualified", "Closed"];
   const priorityOptions = ["All", "Low", "Medium", "High"];
 
-  // Handler functions for filter changes
   const handleStatusChange = (selectedStatus) => {
     setStatus(selectedStatus);
   };
@@ -76,7 +72,6 @@ export default function CustomizedTables({
     setTimeRange(newRange);
   };
 
-  // Memoized data processing with filters
   const processedData = React.useMemo(() => {
     if (!data) return [];
 
@@ -113,7 +108,6 @@ export default function CustomizedTables({
           <h1 className="col-md-12">{title || "Lead List"}</h1>
           <span className="col-md-12">
             <div className="row">
-              {/* Status Filter */}
               {(specificFilters.length === 0 || specificFilters.includes('status')) && (
                 <span className="col-md-3 my-4">
                   <SelectFilter
@@ -124,7 +118,6 @@ export default function CustomizedTables({
                 </span>
               )}
 
-              {/* Priority Filter */}
               {(specificFilters.length === 0 || specificFilters.includes('priority')) && (
                 <span className="col-md-3 my-4">
                   <SelectFilter
@@ -135,7 +128,6 @@ export default function CustomizedTables({
                 </span>
               )}
 
-              {/* Sales Agent Filter */}
               {(showFilters || specificFilters.includes('salesAgent')) && (
                 <span className="col-md-3 my-4">
                   <SelectFilter
@@ -147,7 +139,6 @@ export default function CustomizedTables({
                 </span>
               )}
 
-              {/* Priority Sort */}
               {(showFilters || specificFilters.includes('prioritySort')) && (
                 <span className="col-md-3">
                   <SortByPriority
@@ -157,7 +148,6 @@ export default function CustomizedTables({
                 </span>
               )}
 
-              {/* Time To Close Filter */}
               <span className="col-md-3">
                 <SortByTimeToClose
                   value={timeRange}
@@ -169,11 +159,9 @@ export default function CustomizedTables({
         </div>
       )}
 
-      {/* Loading and Error Handling */}
       {loading && <Loading />}
       {error && <Error />}
 
-      {/* Table Rendering */}
       {processedData && (
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
