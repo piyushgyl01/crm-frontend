@@ -106,67 +106,144 @@ export default function LeadDetails() {
   }, [showEditForm, lead]);
 
   return (
-    <>
+    <div className="container mt-4">
       {error && <Error />}
       {loading && <Loading />}
-      <h1 className="text-center">Lead Details: {lead?.name}</h1>
-      <h3>Lead Name: {lead?.name}</h3>
-      <h3>Sales Agent: {lead?.salesAgent.name}</h3>
-      <h3>Lead Source: {lead?.source}</h3>
-      <h3>Lead Status: {lead?.status}</h3>
-      <h3>Priority: {lead?.priority}</h3>
-      <h3>Time to Close: {lead?.timeToClose} hours</h3>
-      <button onClick={handleEditClick}>
-        {showEditForm ? "Cancel Edit" : "Edit Details"}
-      </button>
-      {showEditForm && (
-        <Form
-          lead={lead}
-          salesAgent={salesAgent}
-          onSave={handleEdit}
-          type="edit"
-        />
-      )}
-      <h1 className="text-center">Comment Section</h1>
-      {commentData?.map((comment) => (
-        <>
-          <div key={comment._id}>
-            <h3>
-              {comment.author.name} - {comment.createdAt}
-            </h3>
-            <h3>Comment Text: {comment.commentText}</h3>
+
+      <div className="card mb-4 shadow">
+        <div className="card-header bg-primary text-white">
+          <h1 className="h4 mb-0">Lead Details: {lead?.name}</h1>
+        </div>
+        <div className="card-body">
+          <div className="row">
+            <div className="col-md-6">
+              <dl className="row">
+                <dt className="col-sm-4">Name:</dt>
+                <dd className="col-sm-8">{lead?.name}</dd>
+
+                <dt className="col-sm-4">Sales Agent:</dt>
+                <dd className="col-sm-8">{lead?.salesAgent.name}</dd>
+
+                <dt className="col-sm-4">Source:</dt>
+                <dd className="col-sm-8">{lead?.source}</dd>
+              </dl>
+            </div>
+            <div className="col-md-6">
+              <dl className="row">
+                <dt className="col-sm-4">Status:</dt>
+                <dd className="col-sm-8">
+                  <span className={`badge bg-${lead?.status === 'Closed' ? 'success' : 'primary'}`}>
+                    {lead?.status}
+                  </span>
+                </dd>
+
+                <dt className="col-sm-4">Priority:</dt>
+                <dd className="col-sm-8">
+                  <span className={`badge bg-${priorityColors[lead?.priority]}`}>
+                    {lead?.priority}
+                  </span>
+                </dd>
+
+                <dt className="col-sm-4">Time to Close:</dt>
+                <dd className="col-sm-8">{lead?.timeToClose} hours</dd>
+              </dl>
+            </div>
           </div>
-        </>
-      ))}
-      <label htmlFor="commentAuthor">Comment Author:</label> <br />
-      <select
-        onChange={(event) =>
-          setCommentContent({ ...commentContent, author: event.target.value })
-        }
-        id="commentAuthor"
-      >
-        <option value="">Choose author</option>
-        {salesAgent?.map((agent) => (
-          <option value={agent._id} key={agent._id}>
-            {agent.name}
-          </option>
-        ))}
-      </select>
-      <br /> <br />
-      <label htmlFor="commentInput">Add New Comment:</label> <br />
-      <textarea
-        type="text"
-        value={commentContent.commentText}
-        id="commentInput"
-        onChange={(event) =>
-          setCommentContent({
-            ...commentContent,
-            commentText: event.target.value,
-          })
-        }
-      />
-      <br /> <br />
-      <button onClick={handleAddComment}>Submit</button>
-    </>
+
+          <button 
+            onClick={handleEditClick}
+            className={`btn ${showEditForm ? 'btn-secondary' : 'btn-primary'} mt-3`}
+          >
+            {showEditForm ? "Cancel Edit" : "Edit Details"}
+          </button>
+
+          {showEditForm && (
+            <div className="mt-4">
+              <Form
+                lead={lead}
+                salesAgent={salesAgent}
+                onSave={handleEdit}
+                type="edit"
+              />
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="card shadow">
+        <div className="card-header bg-info text-white">
+          <h2 className="h5 mb-0">Comment Section</h2>
+        </div>
+        <div className="card-body">
+          <div className="mb-4">
+            {commentData?.map((comment) => (
+              <div key={comment._id} className="card mb-3">
+                <div className="card-body">
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <h5 className="card-title mb-0">{comment.author.name}</h5>
+                    <small className="text-muted">
+                      {new Date(comment.createdAt).toLocaleDateString()}
+                    </small>
+                  </div>
+                  <p className="card-text">{comment.commentText}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="border-top pt-4">
+            <div className="mb-3">
+              <label htmlFor="commentAuthor" className="form-label">Comment Author</label>
+              <select
+                className="form-select"
+                onChange={(event) =>
+                  setCommentContent({ ...commentContent, author: event.target.value })
+                }
+                id="commentAuthor"
+                value={commentContent.author}
+              >
+                <option value="">Select Author</option>
+                {salesAgent?.map((agent) => (
+                  <option value={agent._id} key={agent._id}>
+                    {agent.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="commentInput" className="form-label">New Comment</label>
+              <textarea
+                className="form-control"
+                rows="3"
+                value={commentContent.commentText}
+                id="commentInput"
+                onChange={(event) =>
+                  setCommentContent({
+                    ...commentContent,
+                    commentText: event.target.value,
+                  })
+                }
+              />
+            </div>
+
+            <button 
+              onClick={handleAddComment}
+              className="btn btn-primary"
+              disabled={!commentContent.author || !commentContent.commentText}
+            >
+              Submit Comment
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
+
+// Add priority colors mapping at the bottom if not already present
+const priorityColors = {
+  High: "danger",
+  Medium: "warning",
+  Low: "success"
+};

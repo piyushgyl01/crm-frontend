@@ -14,6 +14,7 @@ import SortByPriority from "./SortByPriority";
 import SortByTimeToClose from "./SortByTimeToClose";
 import { Link } from "react-router-dom";
 
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,

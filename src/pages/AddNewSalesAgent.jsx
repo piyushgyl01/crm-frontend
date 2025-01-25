@@ -8,7 +8,7 @@ export default function AddNewSalesAgent() {
 
   const handleAddSalesAgent = async () => {
     try {
-      fetch("https://crmables-backend.vercel.app/salesAgent", {
+      await fetch("https://crmables-backend.vercel.app/salesAgent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -16,35 +16,65 @@ export default function AddNewSalesAgent() {
         body: JSON.stringify(salesAgentData),
       });
       console.log("Added");
+      // Clear form after submission
+      setSalesAgentData({ name: "", email: "" });
     } catch (error) {
-      console.error("Error occured while adding sales agent", error);
+      console.error("Error occurred while adding sales agent", error);
     }
   };
 
   return (
-    <>
-      <h1>Add New Sales Agent</h1>
-      <label htmlFor="nameField">Sales Agent's Name:</label> <br />
-      <input
-        type="text"
-        value={salesAgentData.name}
-        onChange={(e) =>
-          setSalesAgentData({ ...salesAgentData, name: e.target.value })
-        }
-        id="emailField"
-      />
-      <br /> <br />
-      <label htmlFor="emailField">Sales Agent's Email:</label> <br />
-      <input
-        onChange={(e) =>
-          setSalesAgentData({ ...salesAgentData, email: e.target.value })
-        }
-        type="text"
-        value={salesAgentData.email}
-        id="emailField"
-      />
-      <br /> <br />
-      <button onClick={handleAddSalesAgent}>Add Agent</button>
-    </>
+    <div className="container mt-5">
+      <div className="card shadow-sm">
+        <div className="card-header bg-primary text-white">
+          <h2 className="h4 mb-0">Add New Sales Agent</h2>
+        </div>
+        <div className="card-body">
+          <div className="row g-3">
+            <div className="col-md-12">
+              <label htmlFor="nameField" className="form-label">
+                Sales Agent's Name
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                value={salesAgentData.name}
+                onChange={(e) =>
+                  setSalesAgentData({ ...salesAgentData, name: e.target.value })
+                }
+                id="nameField"
+                required
+              />
+            </div>
+
+            <div className="col-md-12">
+              <label htmlFor="emailField" className="form-label">
+                Sales Agent's Email
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                value={salesAgentData.email}
+                onChange={(e) =>
+                  setSalesAgentData({ ...salesAgentData, email: e.target.value })
+                }
+                id="emailField"
+                required
+              />
+            </div>
+
+            <div className="col-12 mt-4">
+              <button 
+                className="btn btn-primary w-100" 
+                onClick={handleAddSalesAgent}
+                disabled={!salesAgentData.name || !salesAgentData.email}
+              >
+                Add Agent
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
